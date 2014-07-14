@@ -1,0 +1,13 @@
+{
+  "name": "threejs_myskeleton",
+  "description": "hello world form test app",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "traceur": "*",
+    "restify": "*",
+    "connect": "*",
+    "serve-static": "*",
+    "node-inspector": "*"
+  }
+}

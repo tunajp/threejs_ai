@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Three.js</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- base library(jQuery&Three.js) -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="js/libs/mrdoob-three.js/build/three.min.js"></script>
+        <script src="js/libs/mrdoob-three.js/TrackballControls.js"></script>
+        <script src="js/libs/mrdoob-three.js/Detector.js"></script>
+        <script src="js/libs/mrdoob-three.js/stats.min.js"></script>
+        <script src="js/libs/mrdoob-three.js/MD2CharacterComplex.js"></script>
+        <script src="js/libs/traceur.js"></script>
+
+        <!-- shaders -->
+        <script src="js/libs/webgl-shader-loader-js-master/ShaderLoader.min.js"></script>
+        <script data-src="js/app/assets/shader/vertex.fx" data-name="vertexShader" type="x-shader/x-vertex"></script>
+        <script data-src="js/app/assets/shader/fragment.fx" data-name="fragmentShader" type="x-shader/x-fragment"></script>
+
+        <!-- myApplication -->
+        <script src="js/app/app.compiled.js"></script>
+
+        <style>
+            html, body {
+                width: 100%;
+                height: 100%;
+            }
+            body {
+                background-color: #fffff;
+                margin: 0;
+                overflow: hidden;
+                font-family: arial;
+            }
+            #debug_board {
+                background-color: rgba(255, 0, 0, 0.5);
+                border: 1px solid black;
+                bottom: 10px;
+                left: 10px;
+                position: absolute;
+                z-index: 100;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="canvas"></div>
+    </body>
+</html>
