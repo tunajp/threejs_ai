@@ -8,6 +8,7 @@
     "restify": "*",
     "connect": "*",
     "serve-static": "*",
+    "uglify-js": "*",
     "node-inspector": "*"
   }
 }
