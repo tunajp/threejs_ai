@@ -260,8 +260,12 @@ System.register("objects/enemies", [], function() {
     }
   }, {});
   var Enemy = function Enemy() {
+    this.name = "";
+    this.maxhp = 100;
     this.hp = 100;
+    this.maxmp = 0;
     this.mp = 0;
+    this.maxammo = 10;
     this.ammo = 10;
     this.status = null;
     this.character = null;
@@ -341,7 +345,8 @@ System.register("objects/enemies", [], function() {
           z: z
         });
       }
-      var sprite = new Sprite("aaa", (function() {}));
+      enemy.name = "モンスター" + i;
+      var sprite = new Sprite(" " + enemy.name + " HP:" + enemy.hp + "/" + enemy.maxhp + " ", (function() {}));
       enemy.sprite = sprite;
       this.characters.push(enemy);
     }

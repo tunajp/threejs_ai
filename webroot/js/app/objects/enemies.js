@@ -137,10 +137,18 @@ class Enemy
     //
     // private member
     //
+    /** Name */
+    this.name = "";
+    /** MAXHP */
+    this.maxhp = 100;
     /** HP */
     this.hp = 100;
+    /** MAXMP? */
+    this.maxmp = 0;
     /** MP? */
     this.mp = 0;
+    /** 弾のMAX */
+    this.maxammo = 10;
     /** 弾の残り数 */
     this.ammo = 10;
     /** ステータス */
@@ -278,8 +286,9 @@ export class Enemies
         var z = Math.floor(Math.random()*1000) -500;
         enemy.target_positions_array.push({x:x, z:z});
       }
+      enemy.name = "モンスター" + i;
       // sprite
-      var sprite = new Sprite("aaa", ()=>{});
+      var sprite = new Sprite(" " + enemy.name + " HP:"+ enemy.hp + "/" + enemy.maxhp + " ", ()=>{});
       enemy.sprite = sprite;
 
       this.characters.push(enemy);
