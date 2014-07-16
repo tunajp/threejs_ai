@@ -173,10 +173,10 @@ System.register("objects/enemies", [], function() {
   var __moduleName = "objects/enemies";
   var PXUtil = System.get("util");
   var PXConfig = System.get("config");
-  var Sprite = function Sprite(callback_function) {
+  var Sprite = function Sprite(message, callback_function) {
     PXUtil.trace_func('Sprite::constructor');
     this.callback_function = callback_function;
-    this.sprite = this.makeTextSprite(" Hello, ", {
+    this.sprite = this.makeTextSprite(message, {
       fontsize: 24,
       borderColor: {
         r: 255,
@@ -194,6 +194,9 @@ System.register("objects/enemies", [], function() {
     this.callback_function(this.sprite);
   };
   ($traceurRuntime.createClass)(Sprite, {
+    getSprite: function() {
+      return this.sprite;
+    },
     setPositionVector3: function(v) {
       this.sprite.position.set(v.x, v.y, v.z);
     },
@@ -290,6 +293,7 @@ System.register("objects/enemies", [], function() {
           this.target_position_index++;
         }
       }
+      this.sprite.setPosition(this.character.root.position.x, this.character.root.position.y + 30, this.character.root.position.z);
       this.character.update(delta);
     }
   }, {});
@@ -321,6 +325,7 @@ System.register("objects/enemies", [], function() {
     this.callback_function = callback_function;
     this.characters = new Array();
     this.cloneCharacterRoots = new Array();
+    this.sprites = new Array();
     for (var i = 0; i < nCharacters; i++) {
       var character = new THREE.MD2CharacterComplex();
       character.scale = 1;
@@ -336,6 +341,8 @@ System.register("objects/enemies", [], function() {
           z: z
         });
       }
+      var sprite = new Sprite("aaa", (function() {}));
+      enemy.sprite = sprite;
       this.characters.push(enemy);
     }
     var baseCharacter = new THREE.MD2CharacterComplex();
@@ -354,8 +361,9 @@ System.register("objects/enemies", [], function() {
         cloneCharacter.root.position.y = 25;
         cloneCharacter.root.position.z = i * 150 - 500;
         obj.cloneCharacterRoots.push(cloneCharacter.root);
+        obj.sprites.push(obj.characters[i].sprite.getSprite());
       }
-      obj.callback_function(obj.cloneCharacterRoots);
+      obj.callback_function(obj.cloneCharacterRoots, obj.sprites);
     };
     baseCharacter.loadParts(config);
   };
@@ -516,9 +524,12 @@ System.register("testscene", [], function() {
         $__5.loadedIncrements();
       }));
       this.render_target_array.push(debugfloor);
-      var enemies = new PXEnemies.Enemies(10, (function(meshes) {
+      var enemies = new PXEnemies.Enemies(10, (function(meshes, sprites) {
         for (var i = 0; i < meshes.length; i++) {
           $__5.scene.add(meshes[i]);
+        }
+        for (var i = 0; i < sprites.length; i++) {
+          $__5.scene.add(sprites[i]);
         }
         $__5.loadedIncrements();
       }));

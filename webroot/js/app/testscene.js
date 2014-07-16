@@ -161,9 +161,12 @@ export class TestScene
     });
     this.render_target_array.push(debugfloor);
 
-    var enemies = new PXEnemies.Enemies(10, (meshes) => {
+    var enemies = new PXEnemies.Enemies(10, (meshes, sprites) => {
       for (var i=0; i<meshes.length; i++) {
         this.scene.add(meshes[i]);
+      }
+      for (var i=0; i<sprites.length; i++) {
+        this.scene.add(sprites[i]);
       }
       this.loadedIncrements();
     });

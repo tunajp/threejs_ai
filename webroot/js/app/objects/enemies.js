@@ -12,16 +12,21 @@ module PXConfig from '../config';
  */
 class Sprite
 {
-  constructor(callback_function)
+  constructor(message, callback_function)
   {
     PXUtil.trace_func('Sprite::constructor');
 
     this.callback_function = callback_function;
 
-    this.sprite = this.makeTextSprite( " Hello, ", { fontsize: 24, borderColor: {r:255, g:0, b:0, a:1.0}, backgroundColor: {r:255, g:100, b:100, a:0.8} } );
+    this.sprite = this.makeTextSprite(message, { fontsize: 24, borderColor: {r:255, g:0, b:0, a:1.0}, backgroundColor: {r:255, g:100, b:100, a:0.8} } );
     //this.sprite.position.set(-85,105,55);
 
     this.callback_function(this.sprite);
+  }
+
+  getSprite()
+  {
+    return this.sprite;
   }
 
   setPositionVector3(/*THREE.Vector3 */v)
@@ -197,6 +202,13 @@ class Enemy
       }
     }
 
+    // spriteも同時に移動
+    this.sprite.setPosition(
+      this.character.root.position.x,
+      this.character.root.position.y+30,
+      this.character.root.position.z
+      );
+
     this.character.update(delta);
   }
 }
@@ -247,6 +259,7 @@ export class Enemies
     this.callback_function = callback_function;
     this.characters = new Array();
     this.cloneCharacterRoots = new Array();
+    this.sprites = new Array();
 
     /*
      * clones
@@ -265,6 +278,10 @@ export class Enemies
         var z = Math.floor(Math.random()*1000) -500;
         enemy.target_positions_array.push({x:x, z:z});
       }
+      // sprite
+      var sprite = new Sprite("aaa", ()=>{});
+      enemy.sprite = sprite;
+
       this.characters.push(enemy);
     }
 
@@ -293,8 +310,9 @@ export class Enemies
         cloneCharacter.root.position.z = i * 150 -500;
 
         obj.cloneCharacterRoots.push(cloneCharacter.root);
+        obj.sprites.push(obj.characters[i].sprite.getSprite());
       }
-      obj.callback_function(obj.cloneCharacterRoots);
+      obj.callback_function(obj.cloneCharacterRoots, obj.sprites);
     };
     baseCharacter.loadParts(config);
   }
