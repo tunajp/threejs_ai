@@ -56,7 +56,7 @@ export class TestScene
 
     // Camera
     this.camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100000);
-    this.camera.position = new THREE.Vector3(0, 150, 500);
+    this.camera.position.set(0, 150, 500);
     this.camera.aspect = window.innerWidth / window.innerHeight;
     this.camera.updateProjectionMatrix();
 
