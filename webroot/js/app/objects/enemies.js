@@ -46,6 +46,44 @@ class Sprite
   {
   }
 
+  updateSprite( message, parameters)
+  {
+    if ( parameters === undefined ) parameters = {};
+
+    var fontface = parameters.hasOwnProperty("fontface") ? 
+      parameters["fontface"] : "Arial";
+    var fontsize = parameters.hasOwnProperty("fontsize") ? 
+      parameters["fontsize"] : 18;
+    var borderThickness = parameters.hasOwnProperty("borderThickness") ? 
+      parameters["borderThickness"] : 4;
+    var borderColor = parameters.hasOwnProperty("borderColor") ?
+      parameters["borderColor"] : { r:0, g:0, b:0, a:1.0 };
+    var backgroundColor = parameters.hasOwnProperty("backgroundColor") ?
+      parameters["backgroundColor"] : { r:255, g:255, b:255, a:1.0 };
+
+    // get size data (height depends only on font size)
+    var metrics = this.context.measureText( message );
+    var textWidth = metrics.width;
+
+    // background color
+    this.context.fillStyle   = "rgba(" + backgroundColor.r + "," + backgroundColor.g + ","
+                                  + backgroundColor.b + "," + backgroundColor.a + ")";
+    // border color
+    this.context.strokeStyle = "rgba(" + borderColor.r + "," + borderColor.g + ","
+                                  + borderColor.b + "," + borderColor.a + ")";
+
+    this.context.lineWidth = borderThickness;
+    this.roundRect(this.context, borderThickness/2, borderThickness/2, textWidth + borderThickness, fontsize * 1.4 + borderThickness, 6);
+    // 1.4 is extra height factor for text below baseline: g,j,p,q.
+
+    // text color
+    this.context.fillStyle = "rgba(0, 0, 0, 1.0)";
+
+    this.context.fillText( message, borderThickness, fontsize + borderThickness);
+
+    this.texture.needsUpdate = true;
+  }
+
   /**
    * makeTextSprite method
    * http://stemkoski.github.io/Three.js/Sprite-Text-Labels.html
@@ -68,35 +106,37 @@ class Sprite
     //var spriteAlignment = THREE.SpriteAlignment.topLeft;
       
     var canvas = document.createElement('canvas');
-    var context = canvas.getContext('2d');
-    context.font = "Bold " + fontsize + "px " + fontface;
+    //var context = canvas.getContext('2d');
+    this.context = canvas.getContext('2d');
+    this.context.font = "Bold " + fontsize + "px " + fontface;
 
     // get size data (height depends only on font size)
-    var metrics = context.measureText( message );
+    var metrics = this.context.measureText( message );
     var textWidth = metrics.width;
 
     // background color
-    context.fillStyle   = "rgba(" + backgroundColor.r + "," + backgroundColor.g + ","
+    this.context.fillStyle   = "rgba(" + backgroundColor.r + "," + backgroundColor.g + ","
                                   + backgroundColor.b + "," + backgroundColor.a + ")";
     // border color
-    context.strokeStyle = "rgba(" + borderColor.r + "," + borderColor.g + ","
+    this.context.strokeStyle = "rgba(" + borderColor.r + "," + borderColor.g + ","
                                   + borderColor.b + "," + borderColor.a + ")";
 
-    context.lineWidth = borderThickness;
-    this.roundRect(context, borderThickness/2, borderThickness/2, textWidth + borderThickness, fontsize * 1.4 + borderThickness, 6);
+    this.context.lineWidth = borderThickness;
+    this.roundRect(this.context, borderThickness/2, borderThickness/2, textWidth + borderThickness, fontsize * 1.4 + borderThickness, 6);
     // 1.4 is extra height factor for text below baseline: g,j,p,q.
 
     // text color
-    context.fillStyle = "rgba(0, 0, 0, 1.0)";
+    this.context.fillStyle = "rgba(0, 0, 0, 1.0)";
 
-    context.fillText( message, borderThickness, fontsize + borderThickness);
+    this.context.fillText( message, borderThickness, fontsize + borderThickness);
 
     // canvas contents will be used for a texture
-    var texture = new THREE.Texture(canvas) 
-    texture.needsUpdate = true;
+    //var texture = new THREE.Texture(canvas) 
+    this.texture = new THREE.Texture(canvas) 
+    this.texture.needsUpdate = true;
 
     var spriteMaterial = new THREE.SpriteMaterial( 
-      { map: texture, useScreenCoordinates: false/*, alignment: spriteAlignment*/ } );
+      { map: this.texture, useScreenCoordinates: false/*, alignment: spriteAlignment*/ } );
     var sprite = new THREE.Sprite( spriteMaterial );
     sprite.scale.set(100,50,1.0);
     return sprite;	
@@ -209,6 +249,9 @@ class Enemy
         this.target_position_index++;
       }
     }
+
+    // sprite update
+    this.sprite.updateSprite(" " + this.name + " HP:"+ this.hp-- + "/" + this.maxhp + " ", { fontsize: 24, borderColor: {r:255, g:0, b:0, a:1.0}, backgroundColor: {r:255, g:100, b:100, a:0.8} });
 
     // spriteも同時に移動
     this.sprite.setPosition(

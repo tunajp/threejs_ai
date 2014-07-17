@@ -204,6 +204,34 @@ System.register("objects/enemies", [], function() {
       this.sprite.position.set(x, y, z);
     },
     rendering: function(delta) {},
+    updateSprite: function(message, parameters) {
+      if (parameters === undefined)
+        parameters = {};
+      var fontface = parameters.hasOwnProperty("fontface") ? parameters["fontface"] : "Arial";
+      var fontsize = parameters.hasOwnProperty("fontsize") ? parameters["fontsize"] : 18;
+      var borderThickness = parameters.hasOwnProperty("borderThickness") ? parameters["borderThickness"] : 4;
+      var borderColor = parameters.hasOwnProperty("borderColor") ? parameters["borderColor"] : {
+        r: 0,
+        g: 0,
+        b: 0,
+        a: 1.0
+      };
+      var backgroundColor = parameters.hasOwnProperty("backgroundColor") ? parameters["backgroundColor"] : {
+        r: 255,
+        g: 255,
+        b: 255,
+        a: 1.0
+      };
+      var metrics = this.context.measureText(message);
+      var textWidth = metrics.width;
+      this.context.fillStyle = "rgba(" + backgroundColor.r + "," + backgroundColor.g + "," + backgroundColor.b + "," + backgroundColor.a + ")";
+      this.context.strokeStyle = "rgba(" + borderColor.r + "," + borderColor.g + "," + borderColor.b + "," + borderColor.a + ")";
+      this.context.lineWidth = borderThickness;
+      this.roundRect(this.context, borderThickness / 2, borderThickness / 2, textWidth + borderThickness, fontsize * 1.4 + borderThickness, 6);
+      this.context.fillStyle = "rgba(0, 0, 0, 1.0)";
+      this.context.fillText(message, borderThickness, fontsize + borderThickness);
+      this.texture.needsUpdate = true;
+    },
     makeTextSprite: function(message, parameters) {
       if (parameters === undefined)
         parameters = {};
@@ -223,20 +251,20 @@ System.register("objects/enemies", [], function() {
         a: 1.0
       };
       var canvas = document.createElement('canvas');
-      var context = canvas.getContext('2d');
-      context.font = "Bold " + fontsize + "px " + fontface;
-      var metrics = context.measureText(message);
+      this.context = canvas.getContext('2d');
+      this.context.font = "Bold " + fontsize + "px " + fontface;
+      var metrics = this.context.measureText(message);
       var textWidth = metrics.width;
-      context.fillStyle = "rgba(" + backgroundColor.r + "," + backgroundColor.g + "," + backgroundColor.b + "," + backgroundColor.a + ")";
-      context.strokeStyle = "rgba(" + borderColor.r + "," + borderColor.g + "," + borderColor.b + "," + borderColor.a + ")";
-      context.lineWidth = borderThickness;
-      this.roundRect(context, borderThickness / 2, borderThickness / 2, textWidth + borderThickness, fontsize * 1.4 + borderThickness, 6);
-      context.fillStyle = "rgba(0, 0, 0, 1.0)";
-      context.fillText(message, borderThickness, fontsize + borderThickness);
-      var texture = new THREE.Texture(canvas);
-      texture.needsUpdate = true;
+      this.context.fillStyle = "rgba(" + backgroundColor.r + "," + backgroundColor.g + "," + backgroundColor.b + "," + backgroundColor.a + ")";
+      this.context.strokeStyle = "rgba(" + borderColor.r + "," + borderColor.g + "," + borderColor.b + "," + borderColor.a + ")";
+      this.context.lineWidth = borderThickness;
+      this.roundRect(this.context, borderThickness / 2, borderThickness / 2, textWidth + borderThickness, fontsize * 1.4 + borderThickness, 6);
+      this.context.fillStyle = "rgba(0, 0, 0, 1.0)";
+      this.context.fillText(message, borderThickness, fontsize + borderThickness);
+      this.texture = new THREE.Texture(canvas);
+      this.texture.needsUpdate = true;
       var spriteMaterial = new THREE.SpriteMaterial({
-        map: texture,
+        map: this.texture,
         useScreenCoordinates: false
       });
       var sprite = new THREE.Sprite(spriteMaterial);
@@ -297,6 +325,21 @@ System.register("objects/enemies", [], function() {
           this.target_position_index++;
         }
       }
+      this.sprite.updateSprite(" " + this.name + " HP:" + this.hp-- + "/" + this.maxhp + " ", {
+        fontsize: 24,
+        borderColor: {
+          r: 255,
+          g: 0,
+          b: 0,
+          a: 1.0
+        },
+        backgroundColor: {
+          r: 255,
+          g: 100,
+          b: 100,
+          a: 0.8
+        }
+      });
       this.sprite.setPosition(this.character.root.position.x, this.character.root.position.y + 30, this.character.root.position.z);
       this.character.update(delta);
     }
