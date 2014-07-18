@@ -186,3 +186,16 @@ export function uuid(a)
       );
 }
 
+export function i18nLoad(callback_function)
+{
+  $.i18n.init({
+    //lng: 'en-US',
+    ns: { namespaces: ['ns.special'], defaultNs: 'ns.special'},
+    useLocalStorage: false,
+    debug: true
+  }, function() {
+    //var name = $.i18n.t('app.name');
+    //$('#name').text(name);
+    callback_function();
+  });
+}

@@ -131,8 +131,14 @@ class Application
  */
 $( () => {
   /*
-   * application start
+   * i18n init
    */
-  var app = new Application();
-  app.run();
+  PXUtil.i18nLoad( () => {
+    PXUtil.trace_func($.i18n.t('app.i18nLoadComplete'));
+    /*
+     * application start
+     */
+    var app = new Application();
+    app.run();
+  });
 });

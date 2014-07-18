@@ -109,6 +109,18 @@ System.register("util", [], function() {
   function uuid(a) {
     return a ? (a ^ Math.random() * 16 >> a / 4).toString(16) : ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, uuid);
   }
+  function i18nLoad(callback_function) {
+    $.i18n.init({
+      ns: {
+        namespaces: ['ns.special'],
+        defaultNs: 'ns.special'
+      },
+      useLocalStorage: false,
+      debug: true
+    }, function() {
+      callback_function();
+    });
+  }
   return {
     get trace_func() {
       return trace_func;
@@ -127,6 +139,9 @@ System.register("util", [], function() {
     },
     get uuid() {
       return uuid;
+    },
+    get i18nLoad() {
+      return i18nLoad;
     }
   };
 });
@@ -661,8 +676,11 @@ System.register("app", [], function() {
     }
   }, {});
   $((function() {
-    var app = new Application();
-    app.run();
+    PXUtil.i18nLoad((function() {
+      PXUtil.trace_func($.i18n.t('app.i18nLoadComplete'));
+      var app = new Application();
+      app.run();
+    }));
   }));
   return {};
 });
