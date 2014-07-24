@@ -4,6 +4,13 @@ description
 [テストサイト](http://tunajp.github.io/threejs_ai/webroot/)  
 [Unityで初めてのAIキャラクター（目次）](http://gamesonytablet.blogspot.jp/2013/01/unityai.html)のThree.jsでの再現
 
+ビルドに必要なもの
+-----
+ruby:http://rubyinstaller.org/downloads/  
+sass:gem install sass  
+compass:gem install compass --pre  
+node.js:http://nodejs.org/  
+
 使い方(node.js)
 -----
 
