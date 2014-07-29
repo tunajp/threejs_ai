@@ -35,6 +35,10 @@ class Application
      * renderer
      */
     this.renderer = Detector.webgl ? new THREE.WebGLRenderer({antialias: true}) : new THREE.CanvasRenderer();
+    if (Detector.webgl) {
+      PXUtil.webgl_info(this.renderer);
+    } else {
+    }
     var width = window.innerWidth;
     var height = window.innerHeight;
     this.renderer.setSize(width, height);

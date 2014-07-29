@@ -45,6 +45,42 @@ export function debug_board(str)
 }
 
 /**
+ * WebGL Info(https://github.com/tapio/plasma-forks/blob/master/js/utils.js)
+ */
+export function webgl_info(renderer)
+{
+  var gl = renderer.context;
+  var gl_info = {
+    "Version": gl.getParameter(gl.VERSION),
+    "Shading language": gl.getParameter(gl.SHADING_LANGUAGE_VERSION),
+    "Vendor": gl.getParameter(gl.VENDOR),
+    "Renderer": gl.getParameter(gl.RENDERER),
+    "Max varying vectors": gl.getParameter(gl.MAX_VARYING_VECTORS),
+    "Max vertex attribs": gl.getParameter(gl.MAX_VERTEX_ATTRIBS),
+    "Max vertex uniform vectors": gl.getParameter(gl.MAX_VERTEX_UNIFORM_VECTORS),
+    "Max fragment uniform vectors": gl.getParameter(gl.MAX_FRAGMENT_UNIFORM_VECTORS),
+    "Max renderbuffer size": gl.getParameter(gl.MAX_RENDERBUFFER_SIZE),
+    "Max texture size": gl.getParameter(gl.MAX_TEXTURE_SIZE),
+    "Max cube map texture size": gl.getParameter(gl.MAX_CUBE_MAP_TEXTURE_SIZE),
+    "Max texture image units": gl.getParameter(gl.MAX_TEXTURE_IMAGE_UNITS),
+    "Max vertex texture units": gl.getParameter(gl.MAX_VERTEX_TEXTURE_IMAGE_UNITS),
+    "Max combined texture units": gl.getParameter(gl.MAX_COMBINED_TEXTURE_IMAGE_UNITS),
+    "Max viewport dims": gl.getParameter(gl.MAX_VIEWPORT_DIMS)[0] + "x" + gl.getParameter(gl.MAX_VIEWPORT_DIMS)[1]
+  };
+	console.log("WebGL info: ", gl_info);
+}
+
+/**
+ * screenshot(https://github.com/tapio/plasma-forks/blob/master/js/utils.js)
+ */
+export function screenshot(dontDownload, useJPG) {
+  var imgtype = useJPG ? "image/jpeg" : "image/png";
+  var dataUrl = renderer.domElement.toDataURL(imgtype);
+  if (!dontDownload) dataUrl = dataUrl.replace(imgtype, "image/octet-stream");
+  window.open(dataUrl, "_blank");
+}
+
+/**
  * Hoge class
  */
 export class Hoge{
