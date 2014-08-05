@@ -4,7 +4,7 @@
  * @author Mitsunori Inaba <m-inaba@phoenixdesign.jp>
  */
 
-module PXConfig from './config';
+import * as PXConfig from './config';
 
 /**
  * trace_func

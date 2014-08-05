@@ -4,8 +4,8 @@
  * @author Mitsunori Inaba <m-inaba@phoenixdesign.jp>
  */
 
-module PXUtil from '../util';
-module PXConfig from '../config';
+import * as PXUtil from '../util';
+import * as PXConfig from '../config';
 
 /**
  * Debugfloor class

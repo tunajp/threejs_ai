@@ -5,9 +5,9 @@
  */
 
 
-module PXUtil from './util';
-module PXConfig from './config';
-module PXScene from './testscene';
+import * as PXUtil from './util';
+import * as PXConfig from './config';
+import * as PXScene from './testscene';
 
 /**
  * Application class

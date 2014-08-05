@@ -4,8 +4,8 @@
  * @author Mitsunori Inaba <m-inaba@phoenixdesign.jp>
  */
 
-module PXConfig from './config';
-module PXUtil from './util';
+import * as PXConfig from './config';
+import * as PXUtil from './util';
 
 /**
  * Application class
