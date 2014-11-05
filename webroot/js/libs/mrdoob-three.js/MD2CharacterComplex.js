@@ -498,7 +498,7 @@ THREE.MD2CharacterComplex = function () {
 
 		// steering
 
-    // m-inaba test
+		// m-inaba test
 		//this.root.rotation.y = this.bodyOrientation;
 
 	};

@@ -1,6 +1,9 @@
 System.register("config", [], function() {
   "use strict";
   var __moduleName = "config";
+  function require(path) {
+    return $traceurRuntime.require("config", path);
+  }
   var _DEBUG_MODE_ = true;
   var _FPS_ = 60;
   var _ASSETS_PATH_ = "js/app/assets/";
@@ -19,6 +22,9 @@ System.register("config", [], function() {
 System.register("util", [], function() {
   "use strict";
   var __moduleName = "util";
+  function require(path) {
+    return $traceurRuntime.require("util", path);
+  }
   var PXConfig = System.get("config");
   function trace_func(str) {
     if (PXConfig._DEBUG_MODE_) {
@@ -182,6 +188,9 @@ System.register("util", [], function() {
 System.register("objects/debugbox", [], function() {
   "use strict";
   var __moduleName = "objects/debugbox";
+  function require(path) {
+    return $traceurRuntime.require("objects/debugbox", path);
+  }
   var PXUtil = System.get("util");
   var PXConfig = System.get("config");
   var Debugbox = function Debugbox(callback_function) {
@@ -202,6 +211,9 @@ System.register("objects/debugbox", [], function() {
 System.register("objects/debugfloor", [], function() {
   "use strict";
   var __moduleName = "objects/debugfloor";
+  function require(path) {
+    return $traceurRuntime.require("objects/debugfloor", path);
+  }
   var PXUtil = System.get("util");
   var PXConfig = System.get("config");
   var Debugfloor = function Debugfloor(callback_function) {
@@ -220,6 +232,9 @@ System.register("objects/debugfloor", [], function() {
 System.register("objects/enemies", [], function() {
   "use strict";
   var __moduleName = "objects/enemies";
+  function require(path) {
+    return $traceurRuntime.require("objects/enemies", path);
+  }
   var PXUtil = System.get("util");
   var PXConfig = System.get("config");
   var Sprite = function Sprite(message, callback_function) {
@@ -476,6 +491,9 @@ System.register("objects/enemies", [], function() {
 System.register("objects/shaderbox", [], function() {
   "use strict";
   var __moduleName = "objects/shaderbox";
+  function require(path) {
+    return $traceurRuntime.require("objects/shaderbox", path);
+  }
   var PXUtil = System.get("util");
   var PXConfig = System.get("config");
   var Shaderbox = function Shaderbox(myVertexShader1, myFragmentShader1, callback_function) {
@@ -529,6 +547,9 @@ System.register("objects/shaderbox", [], function() {
 System.register("testscene", [], function() {
   "use strict";
   var __moduleName = "testscene";
+  function require(path) {
+    return $traceurRuntime.require("testscene", path);
+  }
   var PXUtil = System.get("util");
   var PXConfig = System.get("config");
   var PXDebugbox = System.get("objects/debugbox");
@@ -599,11 +620,11 @@ System.register("testscene", [], function() {
       this.renderer.render(this.scene, this.camera);
     },
     loadObjects: function() {
-      var $__5 = this;
+      var $__0 = this;
       var debugbox = new PXDebugbox.Debugbox((function(mesh) {
         mesh.position.y += 70;
-        $__5.scene.add(mesh);
-        $__5.loadedIncrements();
+        $__0.scene.add(mesh);
+        $__0.loadedIncrements();
       }));
       this.render_target_array.push(debugbox);
       SHADER_LOADER.load((function(data) {
@@ -612,24 +633,24 @@ System.register("testscene", [], function() {
         var shaderbox = new PXShaderbox.Shaderbox(myVertexShader1, myFragmentShader1, (function(mesh) {
           mesh.position.y += 70;
           mesh.position.x += 120;
-          $__5.scene.add(mesh);
-          $__5.loadedIncrements();
+          $__0.scene.add(mesh);
+          $__0.loadedIncrements();
         }));
-        $__5.render_target_array.push(shaderbox);
+        $__0.render_target_array.push(shaderbox);
       }));
       var debugfloor = new PXDebugfloor.Debugfloor((function(mesh) {
-        $__5.scene.add(mesh);
-        $__5.loadedIncrements();
+        $__0.scene.add(mesh);
+        $__0.loadedIncrements();
       }));
       this.render_target_array.push(debugfloor);
       var enemies = new PXEnemies.Enemies(10, (function(meshes, sprites) {
         for (var i = 0; i < meshes.length; i++) {
-          $__5.scene.add(meshes[i]);
+          $__0.scene.add(meshes[i]);
         }
         for (var i = 0; i < sprites.length; i++) {
-          $__5.scene.add(sprites[i]);
+          $__0.scene.add(sprites[i]);
         }
-        $__5.loadedIncrements();
+        $__0.loadedIncrements();
       }));
       this.render_target_array.push(enemies);
     },
@@ -646,6 +667,9 @@ System.register("testscene", [], function() {
 System.register("app", [], function() {
   "use strict";
   var __moduleName = "app";
+  function require(path) {
+    return $traceurRuntime.require("app", path);
+  }
   var PXUtil = System.get("util");
   var PXConfig = System.get("config");
   var PXScene = System.get("testscene");
@@ -685,15 +709,15 @@ System.register("app", [], function() {
       this.stats.update();
     },
     rendering: function() {
-      var $__7 = this;
+      var $__0 = this;
       if (PXConfig._FPS_ === 60) {
         requestAnimationFrame((function() {
-          $__7.update();
+          $__0.update();
         }));
       } else {
         setTimeout((function() {
           requestAnimationFrame((function() {
-            $__7.update();
+            $__0.update();
           }));
         }), 1000 / PXConfig._FPS_);
       }
@@ -702,14 +726,14 @@ System.register("app", [], function() {
       }
     },
     resize: function() {
-      var $__7 = this;
+      var $__0 = this;
       PXUtil.trace_func('App::resize');
       $(window).resize((function(e) {
         var w = window.innerWidth;
         var h = window.innerHeight;
         PXUtil.trace_func('App::resize::resize w:' + w + ',h:' + h);
-        $__7.renderer.setSize(w, h);
-        $__7.currentSceneObject.resize();
+        $__0.renderer.setSize(w, h);
+        $__0.currentSceneObject.resize();
       }));
     }
   }, {});

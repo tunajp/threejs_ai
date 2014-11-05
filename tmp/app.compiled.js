@@ -1,6 +1,9 @@
 System.register("../src/config", [], function() {
   "use strict";
   var __moduleName = "../src/config";
+  function require(path) {
+    return $traceurRuntime.require("../src/config", path);
+  }
   var _DEBUG_MODE_ = true;
   var _ASSETS_PATH_ = "js/threejs/assets/";
   return {
@@ -15,6 +18,9 @@ System.register("../src/config", [], function() {
 System.register("../src/util", [], function() {
   "use strict";
   var __moduleName = "../src/util";
+  function require(path) {
+    return $traceurRuntime.require("../src/util", path);
+  }
   var PXConfig = System.get("../src/config");
   function trace_func(str) {
     if (PXConfig._DEBUG_MODE_) {
@@ -58,6 +64,9 @@ System.register("../src/util", [], function() {
 System.register("../src/app", [], function() {
   "use strict";
   var __moduleName = "../src/app";
+  function require(path) {
+    return $traceurRuntime.require("../src/app", path);
+  }
   var PXConfig = System.get("../src/config");
   var PXUtil = System.get("../src/util");
   var Application = function Application() {
