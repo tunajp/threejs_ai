@@ -1,9 +1,6 @@
-System.register("config", [], function() {
+System.registerModule("config", [], function() {
   "use strict";
   var __moduleName = "config";
-  function require(path) {
-    return $traceurRuntime.require("config", path);
-  }
   var _DEBUG_MODE_ = true;
   var _FPS_ = 60;
   var _ASSETS_PATH_ = "js/app/assets/";
@@ -19,32 +16,32 @@ System.register("config", [], function() {
     }
   };
 });
-System.register("util", [], function() {
+System.registerModule("util", [], function() {
   "use strict";
   var __moduleName = "util";
-  function require(path) {
-    return $traceurRuntime.require("util", path);
-  }
   var PXConfig = System.get("config");
   function trace_func(str) {
     if (PXConfig._DEBUG_MODE_) {
       var d = new Date();
-      var hh = d.getHours();
-      var mm = d.getMinutes();
-      var ss = d.getSeconds();
-      var dd = d.getMilliseconds();
+      var hh = pad(d.getHours());
+      var mm = pad(d.getMinutes());
+      var ss = pad(d.getSeconds());
+      var dd = pad(d.getMilliseconds());
       var log_time = hh + ":" + mm + ":" + ss + ":" + dd;
       console.log(log_time + " " + str);
     }
+  }
+  function pad(n) {
+    return ("0" + n).slice(-2);
   }
   function debug_board(str) {
     'use strict';
     if (PXConfig._DEBUG_MODE_) {
       var d = new Date();
-      var hh = d.getHours();
-      var mm = d.getMinutes();
-      var ss = d.getSeconds();
-      var dd = d.getMilliseconds();
+      var hh = pad(d.getHours());
+      var mm = pad(d.getMinutes());
+      var ss = pad(d.getSeconds());
+      var dd = pad(d.getMilliseconds());
       var log_time = hh + ":" + mm + ":" + ss + ":" + dd;
       $('#debug_board').html(log_time + ' ' + str);
     }
@@ -79,7 +76,7 @@ System.register("util", [], function() {
   }
   var Hoge = function Hoge() {};
   ($traceurRuntime.createClass)(Hoge, {hoge: function(x) {
-      console.log('Hoge::hoge');
+      console.log('Hoge::hoge ' + x);
     }}, {});
   function confirmDialog(message, title, buttonok, buttoncancel, response) {
     var _dlg = $('<div>' + message + '</div>');
@@ -185,12 +182,9 @@ System.register("util", [], function() {
     }
   };
 });
-System.register("objects/debugbox", [], function() {
+System.registerModule("objects/debugbox", [], function() {
   "use strict";
   var __moduleName = "objects/debugbox";
-  function require(path) {
-    return $traceurRuntime.require("objects/debugbox", path);
-  }
   var PXUtil = System.get("util");
   var PXConfig = System.get("config");
   var Debugbox = function Debugbox(callback_function) {
@@ -208,12 +202,9 @@ System.register("objects/debugbox", [], function() {
       return Debugbox;
     }};
 });
-System.register("objects/debugfloor", [], function() {
+System.registerModule("objects/debugfloor", [], function() {
   "use strict";
   var __moduleName = "objects/debugfloor";
-  function require(path) {
-    return $traceurRuntime.require("objects/debugfloor", path);
-  }
   var PXUtil = System.get("util");
   var PXConfig = System.get("config");
   var Debugfloor = function Debugfloor(callback_function) {
@@ -229,12 +220,9 @@ System.register("objects/debugfloor", [], function() {
       return Debugfloor;
     }};
 });
-System.register("objects/enemies", [], function() {
+System.registerModule("objects/enemies", [], function() {
   "use strict";
   var __moduleName = "objects/enemies";
-  function require(path) {
-    return $traceurRuntime.require("objects/enemies", path);
-  }
   var PXUtil = System.get("util");
   var PXConfig = System.get("config");
   var Sprite = function Sprite(message, callback_function) {
@@ -488,18 +476,15 @@ System.register("objects/enemies", [], function() {
       return Enemies;
     }};
 });
-System.register("objects/shaderbox", [], function() {
+System.registerModule("objects/shaderbox", [], function() {
   "use strict";
   var __moduleName = "objects/shaderbox";
-  function require(path) {
-    return $traceurRuntime.require("objects/shaderbox", path);
-  }
   var PXUtil = System.get("util");
   var PXConfig = System.get("config");
   var Shaderbox = function Shaderbox(myVertexShader1, myFragmentShader1, callback_function) {
     PXUtil.trace_func('Shaderbox::constructor');
     this.callback_function = callback_function;
-    var baseTexture = new THREE.ImageUtils.loadTexture(PXConfig._ASSETS_PATH_ + 'cover.png');
+    var baseTexture = new THREE.ImageUtils.loadTexture(PXConfig._ASSETS_PATH_ + 'Three.js-code-example.jpg');
     var sepia = true;
     var sepia_value = false;
     var grayscale_value = false;
@@ -544,12 +529,9 @@ System.register("objects/shaderbox", [], function() {
       return Shaderbox;
     }};
 });
-System.register("testscene", [], function() {
+System.registerModule("testscene", [], function() {
   "use strict";
   var __moduleName = "testscene";
-  function require(path) {
-    return $traceurRuntime.require("testscene", path);
-  }
   var PXUtil = System.get("util");
   var PXConfig = System.get("config");
   var PXDebugbox = System.get("objects/debugbox");
@@ -664,12 +646,9 @@ System.register("testscene", [], function() {
       return TestScene;
     }};
 });
-System.register("app", [], function() {
+System.registerModule("app.js", [], function() {
   "use strict";
-  var __moduleName = "app";
-  function require(path) {
-    return $traceurRuntime.require("app", path);
-  }
+  var __moduleName = "app.js";
   var PXUtil = System.get("util");
   var PXConfig = System.get("config");
   var PXScene = System.get("testscene");
@@ -746,4 +725,4 @@ System.register("app", [], function() {
   }));
   return {};
 });
-System.get("app" + '');
+System.get("app.js" + '');

@@ -21,7 +21,7 @@ export class Shaderbox
 
     this.callback_function = callback_function;
 
-    var baseTexture = new THREE.ImageUtils.loadTexture(PXConfig._ASSETS_PATH_ + 'cover.png');
+    var baseTexture = new THREE.ImageUtils.loadTexture(PXConfig._ASSETS_PATH_ + 'Three.js-code-example.jpg');
     // http://www.atmarkit.co.jp/ait/articles/1211/26/news012.htmlより
     // i	数値（整数に丸められる）
     // f	数値

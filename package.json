@@ -1,14 +1,20 @@
 {
-  "name": "threejs_myskeleton",
+  "name": "threejs_myskeleton2",
   "description": "hello world form test app",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "gulp": "*",
+    "gulp-uglify": "*",
+    "gulp-concat": "*",
+    "gulp-rename": "*",
+    "gulp-shell": "*",
+
     "traceur": "*",
-    "restify": "*",
+
     "connect": "*",
     "serve-static": "*",
-    "uglify-js": "*",
+
     "node-inspector": "*"
   }
 }
