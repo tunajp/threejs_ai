@@ -4,8 +4,8 @@
  * @author Mitsunori Inaba <m-inaba@phoenixdesign.jp>
  */
 
-import * as PXUtil from '../util';
-import * as PXConfig from '../config';
+import * as PXUtil from '../util.js';
+import * as PXConfig from '../config.js';
 
 /**
  * Debugbox class

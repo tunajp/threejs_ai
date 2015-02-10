@@ -4,7 +4,7 @@
  * @author Mitsunori Inaba <m-inaba@phoenixdesign.jp>
  */
 
-import * as PXConfig from './config';
+import * as PXConfig from './config.js';
 
 /**
  * debug_board デバッグ板に文字列を出力する

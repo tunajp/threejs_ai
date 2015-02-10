@@ -5,9 +5,9 @@
  */
 
 
-import * as PXUtil from './util';
-import * as PXConfig from './config';
-import * as PXScene from './testscene';
+import * as PXUtil from './util.js';
+import * as PXConfig from './config.js';
+import * as PXScene from './testscene.js';
 
 /**
  * Application class

@@ -4,12 +4,12 @@
  * @author Mitsunori Inaba <m-inaba@phoenixdesign.jp>
  */
 
-import * as PXUtil from './util';
-import * as PXConfig from './config';
-import * as PXDebugbox from './objects/debugbox';
-import * as PXShaderbox from './objects/shaderbox';
-import * as PXDebugfloor from './objects/debugfloor';
-import * as PXEnemies from './objects/enemies';
+import * as PXUtil from './util.js';
+import * as PXConfig from './config.js';
+import * as PXDebugbox from './objects/debugbox.js';
+import * as PXShaderbox from './objects/shaderbox.js';
+import * as PXDebugfloor from './objects/debugfloor.js';
+import * as PXEnemies from './objects/enemies.js';
 
 var _TEST_CONTROLLER_ = true;
 
